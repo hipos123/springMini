@@ -1,0 +1,22 @@
+spring的入口是DispatcherServlet 和 ClassPathXmlApplicationContext类（核心方法是refresh方法）
+以DispatcherServle 为例子做说明：
+1)在web.xml中配置DispatcherServlet 并且初始化的参数文件为application.properties
+2)在application.properties配置文件中定义包扫描路径
+3）DispatcherServlet类的init方法主要做以下几个事情：
+
+一：定位
+通过获取web.xml中的配置文件来定位需要初始化哪些类
+
+二:加载
+从定位到的资源文件中获取需要扫描的类路径，扫描这个路径下的所有类，添加到list中
+
+三:注册
+循环list，通过反射机制获取到类，再判断当前这个类是否带有controll或者service的注解，如果有的话，以类名小字母小写做key，类做value存放到
+ioc容器里面。
+
+四：依赖注入
+循环ioc容器这个map，从value中获取到类信息，通过反射机制获取到类的所有的filed数组。循环fields，判断当前的成员变量是否带有
+autowired的注解，如果有的话，通过类名或者自定义的名字从ioc容器中获取具体的类进行，在设置到这个对象上。
+
+五:请求和方法的映射
+
