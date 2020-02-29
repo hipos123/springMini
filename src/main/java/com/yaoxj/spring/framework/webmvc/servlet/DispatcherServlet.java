@@ -5,6 +5,7 @@ package com.yaoxj.spring.framework.webmvc.servlet;
 import com.yaoxj.spring.framework.context.MiniApplicationContext;
 import com.yaoxj.spring.framework.webmvc.MyHandlerAdapter;
 import com.yaoxj.spring.framework.webmvc.MyHandlerMapping;
+import com.yaoxj.spring.framework.webmvc.MyViewResolver;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -22,6 +23,9 @@ public class DispatcherServlet extends HttpServlet {
     private List<MyHandlerMapping> myHandlerMappingList=new ArrayList<MyHandlerMapping>();
 
     Map<MyHandlerMapping,MyHandlerAdapter> myHandlerAdapterMap=new HashMap<MyHandlerMapping,MyHandlerAdapter>();
+
+    private List<MyViewResolver> myViewResolverList=new ArrayList<>();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
@@ -58,11 +62,15 @@ public class DispatcherServlet extends HttpServlet {
 //        initHandlerExceptionResolvers(context);
 //        initRequestToViewNameTranslator(context);
         //ViewResolvers动态模板的解析，逻辑视图到物理视图的具体事项
-//        initViewResolvers(context);
+        initViewResolvers(context);
 //        initFlashMapManager(context);
 
 
 
+    }
+
+    private void initViewResolvers(MiniApplicationContext context) {
+        //从配置文件中获取模板文件的目录，循环整个目录，将文件名字和文件保存到
     }
 
     private void initHandlerAdapters(MiniApplicationContext context) {
@@ -73,8 +81,6 @@ public class DispatcherServlet extends HttpServlet {
     private void initHandlerMappings(MiniApplicationContext context) {
         //从ioc容器里面获取到所有的bean信息，进行循环，注解是control的，并且有requestMapping注解的，
         //拿到这个url，类名，和方法名放到一个map里面，再将一个map放到一个list里面，就组装好了一个url和方法的映射关系
-
-
 
     }
 }
