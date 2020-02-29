@@ -43,6 +43,7 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
+
         //定位资源文件，配置文件
         doLocationCondfig(config.getInitParameter("servletContentLocation"));
 
